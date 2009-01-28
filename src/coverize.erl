@@ -2,6 +2,7 @@
 %%% Author  : Michael Mullis <michael@mullistechnologies.com>
 %%% Description : A wrapper for generating cover output with a colorized index and stats
 %%% Created : 28 Jan 2009 by Michael Mullis <michael@mullistechnologies.com>
+%%% Copyright (c) 2009 Michael Mullis
 
 -module(coverize).
 -author("michael@mullistechnologies.com").
@@ -10,8 +11,8 @@
 %% Wrapper for cover to make command line calling easy
 run(SourceDirs,TestSuiteModule) ->
   CompileOptions = [ debug_info,
-	{ i, "./include" },
-	{ outdir, "./ebin" }],
+                     { i, "./include" },
+                     { outdir, "./ebin" }],
   run(SourceDirs,CompileOptions,TestSuiteModule,"./coverage").
 
 %% TestSuiteModule should have a function test/0.
@@ -22,19 +23,19 @@ run(SourceDirs,CompileOptions,TestSuiteModule,OutputDir) ->
 
   TestSuiteModule:test(),
   SummaryFileName = filename:join([
-			      OutputDir,
-			      "index.html"
-			     ]),
+                                   OutputDir,
+                                   "index.html"
+                                  ]),
 
   {ok, SummaryFile} = file:open(SummaryFileName, [write]),
 
   io:fwrite(SummaryFile, "<html><body><table><th>Module</th><th>Covered</th><th>Not Covered</th><th>% Complete</th>~n", []),
 
   {_, _, {TotCovered,TotUncovered}} = dump_coverage(OutputDir, SummaryFile, cover:modules()),
-  
-  io:fwrite(SummaryFile, 
-	"<div style=\"margin-right: 0; margin-top:0\">Overall Coverage: ~p% </div>~n", 
-	[calc_percentage(TotCovered,TotUncovered)]),
+
+  io:fwrite(SummaryFile,
+            "<div style=\"margin-right: 0; margin-top:0\">Overall Coverage: ~p% </div>~n",
+            [calc_percentage(TotCovered,TotUncovered)]),
 
   io:fwrite(SummaryFile, "</table></body></html>~n", []),
 
@@ -59,15 +60,15 @@ dump_coverage(OutputDir, SummaryFile, [Module|RemainingModules], Acc, {TotCovere
   TotalsAcc2 = {TotCovered+CoveredLines, TotUncovered+UncoveredLines},
 
   BackgroundStyle = case UncoveredLines > 0 of
-    true ->
-      "background: #E05070;";  % something red-ish
-    false ->
-      "background: #30d42a;"  % something green-ish
-  end,
+                      true ->
+                        "background: #E05070;";  % something red-ish
+                      false ->
+                        "background: #30d42a;"  % something green-ish
+                    end,
 
-  io:fwrite(SummaryFile, 
-	"<tr style=~p><td><a href=\"~p.COVER.html\">~p</a></td><td style=\"text-align: right\">~p</td><td style=\"text-align: right\">~p</td><td style=\"text-align: center\">~p</td></tr>~n", 
-	[BackgroundStyle,Module,Module,CoveredLines,UncoveredLines, calc_percentage(CoveredLines,UncoveredLines)]),
+  io:fwrite(SummaryFile,
+            "<tr style=~p><td><a href=\"~p.COVER.html\">~p</a></td><td style=\"text-align: right\">~p</td><td style=\"text-align: right\">~p</td><td style=\"text-align: center\">~p</td></tr>~n",
+            [BackgroundStyle,Module,Module,CoveredLines,UncoveredLines, calc_percentage(CoveredLines,UncoveredLines)]),
 
   dump_coverage(OutputDir, SummaryFile, RemainingModules, Acc2, TotalsAcc2);
 

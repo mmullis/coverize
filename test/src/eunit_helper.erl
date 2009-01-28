@@ -9,9 +9,9 @@
 
 %% Wrapper for cover to make command line calling easy
 run_cover() ->
-   %% TODO: Make this list dynamic
+  %% TODO: Make this list dynamic
   SourceDirs = [
-    "./test/src"
-  ],
+                "./test/src"
+               ],
 
   coverize:run(SourceDirs,test_suite).
