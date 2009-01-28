@@ -1,0 +1,20 @@
+If you know of a better or easier way, please let us know.
+This has been a relatively easy approach.
+
+--------------
+Installation
+--------------
+
+git clone git://github.com/mmullis/coverize.git coverize
+cd coverize
+make
+cd ..
+sudo mv coverize <YOUR ERLANG INSTALLATION LIB DIRECTORY>
+
+
+
+--------------
+Updating
+--------------
+cd <YOUR ERLANG INSTALLATION LIB DIRECTORY>/coverize
+git pull origin master
