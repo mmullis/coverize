@@ -5,9 +5,10 @@
 
 -module(eunit_helper).
 -author("michael@mullistechnologies.com").
--compile([export_all]).  % its just for testing so dont blow a gasket!
+-export([run_cover/0]).
 
 %% Wrapper for cover to make command line calling easy
+-spec run_cover() -> any().
 run_cover() ->
   %% TODO: Make this list dynamic
   SourceDirs = [
