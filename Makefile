@@ -17,7 +17,7 @@ coverage: compile
 	mkdir -p coverage
 	erl -noshell -pa ebin -pa test/ebin -s eunit_helper run_cover -s init stop
 
-
+#EXPERIMENTAL: breaks -spec , change {test,true} to {test,false} to make changes
 tidy:
 	erl -noshell \
 		-eval 'erl_tidy:dir("./src", [{verbose,true},{test,true},{new_guard_tests,true},{no_imports,true},{keep_unused,true},{backups,true}])' \
