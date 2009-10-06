@@ -20,7 +20,7 @@ coverage: compile
 
 tidy:
 	erl -noshell \
-		-eval 'erl_tidy:dir("./src", [{verbose,true},{test,true}])' \
-		-eval 'erl_tidy:dir("./test/src", [{verbose,true},{test,true}])' \
+		-eval 'erl_tidy:dir("./src", [{verbose,true},{test,true},{new_guard_tests,true},{no_imports,true},{keep_unused,true},{backups,true}])' \
+		-eval 'erl_tidy:dir("./test/src", [{verbose,true},{test,true},{new_guard_tests,true},{no_imports,true},{keep_unused,true},{backups,true}])' \
 		-s init stop
 	find ./ -name \*.bak -exec rm {} \;
