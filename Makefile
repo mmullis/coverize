@@ -16,3 +16,11 @@ test: compile
 coverage: compile
 	mkdir -p coverage
 	erl -noshell -pa ebin -pa test/ebin -s eunit_helper run_cover -s init stop
+
+
+tidy:
+	erl -noshell \
+		-eval 'erl_tidy:dir("./src", [{verbose,true},{test,true}])' \
+		-eval 'erl_tidy:dir("./test/src", [{verbose,true},{test,true}])' \
+		-s init stop
+	find ./ -name \*.bak -exec rm {} \;
