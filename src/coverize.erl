@@ -7,6 +7,7 @@
 -module(coverize).
 -author("michael@mullistechnologies.com").
 -export([run/2,run/4,run/5]).
+-export([module_summary_file/1]).
 
 %% Wrapper for cover to make command line calling easy
 -spec(run/2 :: (list(string()), atom()) -> ok).
@@ -79,8 +80,8 @@ dump_coverage(OutputDir, SummaryFile, [Module|RemainingModules], Acc, {TotCovere
                     end,
 
   io:fwrite(SummaryFile,
-            "<tr style=~p><td><a href=\"~p.COVER.html\">~p</a></td><td style=\"text-align: right\">~p</td><td style=\"text-align: right\">~p</td><td style=\"text-align: center\">~p</td></tr>~n",
-            [BackgroundStyle,Module,Module,CoveredLines,UncoveredLines, calc_percentage(CoveredLines,UncoveredLines)]),
+            "<tr style=~p><td><a href=\"~s\">~p</a></td><td style=\"text-align: right\">~p</td><td style=\"text-align: right\">~p</td><td style=\"text-align: center\">~p</td></tr>~n",
+            [BackgroundStyle,module_summary_file(Module),Module,CoveredLines,UncoveredLines, calc_percentage(CoveredLines,UncoveredLines)]),
 
   dump_coverage(OutputDir, SummaryFile, RemainingModules, Acc2, TotalsAcc2);
 
@@ -92,3 +93,6 @@ calc_percentage(0,_UncoveredLines) -> 0;
 calc_percentage(_,0) ->  100;
 calc_percentage(CoveredLines,UncoveredLines) ->
   round((CoveredLines / (CoveredLines+UncoveredLines)) * 100).
+
+module_summary_file(ModuleName) ->
+  atom_to_list(ModuleName) ++ ".COVER.html". 
