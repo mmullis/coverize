@@ -95,5 +95,6 @@ calc_percentage(_,0) ->  100;
 calc_percentage(CoveredLines,UncoveredLines) ->
   round((CoveredLines / (CoveredLines+UncoveredLines)) * 100).
 
+-spec module_summary_file(atom()) -> string().
 module_summary_file(ModuleName) ->
   atom_to_list(ModuleName) ++ ".COVER.html". 
