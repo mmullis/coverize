@@ -2,7 +2,7 @@ Coverize - Erlang Coverage Analysis Made Easy!
 
 Perhaps not beautiful yet, but easy to use.
 
-Created by Michael Mullis (michael@mullistechnologies.com) 
+Created by Michael Mullis (michael@mullistechnologies.com)
 
 
 A sample of the usage is in test/src/eunit_helper.erl.
@@ -19,6 +19,12 @@ run_cover() ->
 
   coverize:run(SourceDirs,test_suite).
 
+--------------------------
+Calling from Command Line
+--------------------------
+
+./bin/cover.sh  "./src './test/src'" test_suite test ./coverage
+
 ------------------------
 Calling from a Makefile
 ------------------------
@@ -29,7 +35,7 @@ coverage: compile
 	erl -noshell -pa ebin -pa test/ebin -s eunit_helper run_cover -s init stop
 
 
-Then from the command line (or a script) just 
+Then from the command line (or a script) just
   make coverage
 
 The default location is ./coverage.
@@ -39,4 +45,3 @@ That's the starting point.
 Hooray! It's easy!
 
 Additionally, you'll probably want to add ./coverage to your .gitignore.
-
