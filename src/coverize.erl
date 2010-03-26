@@ -62,6 +62,7 @@ dump_coverage(OutputDir, SummaryFile, [Module|RemainingModules], Acc, {TotCovere
 			      OutputDir,
 			      atom_to_list(Module)++".COVER.html"
 			     ]),
+  filelib:ensure_dir(OutputFile),  %% make sure OutputFile has a place to go
   Acc2 = case cover:analyse_to_file(Module, OutputFile, [html]) of
            {ok, OutFile} ->
              [OutFile|Acc] ;
